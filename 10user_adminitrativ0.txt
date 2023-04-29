@@ -1,0 +1,25 @@
+# 10user_adminitrativ0
+CREA 10 USUARIOS  PERMISOS ADMINISTREATIVOS
+#!/bin/bash
+
+# Definir una lista de nombres de usuario
+usernames=(user1 user2 user3 user4 user5 user6 user7 user8 user9 user10)
+
+# Definir una contraseña para los nuevos usuarios
+password="contraseña123"
+
+# Crear cada usuario en un bucle for
+for i in "${usernames[@]}"
+do
+  # Crear el usuario
+  sudo useradd -m -s /bin/bash $i
+  
+  # Establecer la contraseña para el usuario
+  echo "$i:$password" | sudo chpasswd
+  
+  # Añadir el usuario al grupo "sudo" para que tenga privilegios administrativos
+  sudo usermod -aG sudo $i
+done
+
+# Mostrar un mensaje de confirmación cuando se hayan creado todos los usuarios
+echo "Los 10 usuarios han sido creados satisfactoriamente."
